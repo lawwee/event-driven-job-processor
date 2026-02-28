@@ -26,4 +26,18 @@ export default router
             console.error("Error in job creation route:", error);
             next(error);
         };
+    })
+
+    .get('/:id', async (request, response, next) => {
+        try {
+            const { id } = request.params;
+
+            const result = await jobService.getJobById(id);
+
+            return response.status(result.statusCode).json(result);
+            
+        } catch (error) {
+            console.error("Error in job retrieval route:", error);
+            next(error);
+        };
     });

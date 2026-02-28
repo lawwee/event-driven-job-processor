@@ -28,4 +28,19 @@ export class JobService extends RootService {
             return this.process_failed_response(error);
         };
     };
+
+    async getJobById(id: string) {
+        try {
+            const job = await Job.findById(id);
+            if (!job) {
+                return this.process_failed_response("Job not found", id, 404);
+            };
+
+            return this.process_successful_response(job);
+            
+        } catch (error) {
+            console.error("Error fetching job by ID:", error);
+            return this.process_failed_response(error);
+        };
+    };
 };

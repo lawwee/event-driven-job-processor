@@ -8,6 +8,7 @@ export interface IJob {
     retryCount: number;
     createdAt: Date;
     updatedAt: Date;
+    _id?: string;
 };
 
 export enum JobType {
@@ -16,6 +17,7 @@ export enum JobType {
 
 export enum JobStatus {
     PENDING = "PENDING",
+    QUEUED = "QUEUED",
     IN_PROGRESS = "IN_PROGRESS",
     COMPLETED = "COMPLETED",
     FAILED = "FAILED",

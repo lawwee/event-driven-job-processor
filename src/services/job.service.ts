@@ -1,6 +1,8 @@
 import { JobType } from "src/interfaces/Ijob";
 import { RootService } from "./_root";
 
+import { EnqueueJob } from "src/queue/job.producer";
+
 import { Job } from "src/model/job.model";
 
 import { CreateJobSchemaType } from "src/types/create-job.type";
@@ -40,6 +42,8 @@ export class JobService extends RootService {
                 scheduledAtISO: scheduledAt
             });
 
+            await EnqueueJob(job);
+            
             return this.process_successful_response(job);
 
         } catch (error) {

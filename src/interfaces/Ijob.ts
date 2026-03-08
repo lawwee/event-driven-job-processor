@@ -23,3 +23,7 @@ export enum JobStatus {
     COMPLETED = "COMPLETED",
     FAILED = "FAILED",
 };
+
+export interface JobHandler {
+    execute: (jobId: string, payload: any) => Promise<void>;
+};

@@ -7,6 +7,14 @@ const JobSchema = new mongoose.Schema<IJob>({
         type: String, 
         required: true 
     },
+    scheduledAt: {
+        type: Number, // Store as timestamp (milliseconds)
+        required: true
+    },
+    scheduledAtISO: {
+        type: String, 
+        required: true
+    },
     type: {
         type: String,
         enum: Object.values(JobType),

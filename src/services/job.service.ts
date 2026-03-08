@@ -1,25 +1,44 @@
 import { JobType } from "src/interfaces/Ijob";
 import { RootService } from "./_root";
 
-import { Job } from "src/model/job";
+import { Job } from "src/model/job.model";
+
+import { CreateJobSchemaType } from "src/types/create-job.type";
 
 export class JobService extends RootService {
     constructor() {
         super();
     };
 
-    async createJob(
-        name: string, 
-        type: JobType, 
-        payload: any
-    ) {
+    async createJob(body: CreateJobSchemaType) {
         try {
+            const { name, scheduledAt } = body;
+            
             const existingJob = await Job.findOne({ name });
             if (existingJob) {
                 return this.process_failed_response("A job with the same name already exists", name, 409);
             };
 
-            const job = await Job.create({ name, type, payload });
+            // Convert to timestamp
+            const scheduledAtTimestamp = typeof scheduledAt === 'number' 
+                ? scheduledAt 
+                : new Date(scheduledAt).getTime();
+            
+            if (isNaN(scheduledAtTimestamp)) {
+                return this.process_failed_response("Invalid date format", scheduledAt, 400);
+            };
+            
+            const now = Date.now();
+            
+            if (scheduledAtTimestamp <= now) {
+                return this.process_failed_response("scheduledAt must be a future date", scheduledAt, 400);
+            };
+
+            const job = await Job.create({
+                ...body,
+                scheduledAt: scheduledAtTimestamp,
+                scheduledAtISO: scheduledAt
+            });
 
             return this.process_successful_response(job);
 

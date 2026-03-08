@@ -1,5 +1,7 @@
 export interface IJob {
     name: string;
+    scheduledAt: number;
+    scheduledAtISO: string; 
     type: JobType;
     payload: any;
     status: JobStatus;

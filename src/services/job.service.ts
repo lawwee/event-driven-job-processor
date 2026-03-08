@@ -1,4 +1,4 @@
-import { JobType } from "src/interfaces/Ijob";
+import { IJob, JobType } from "src/interfaces/Ijob";
 import { RootService } from "./_root";
 
 import { EnqueueJob } from "src/queue/job.producer";
@@ -36,14 +36,18 @@ export class JobService extends RootService {
                 return this.process_failed_response("scheduledAt must be a future date", scheduledAt, 400);
             };
 
-            const job = await Job.create({
+            const job: IJob = await Job.create({
                 ...body,
                 scheduledAt: scheduledAtTimestamp,
                 scheduledAtISO: scheduledAt
             });
 
+            if (!job._id) {
+                return this.process_failed_response("Failed to create job", body, 500);
+            };
+
             await EnqueueJob(job);
-            
+
             return this.process_successful_response(job);
 
         } catch (error) {

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node start --watch",
-    "dev": "tsx watch src/main.ts"
+    "dev": "tsx watch src/main.ts",
+    "start:worker": "ts-node src/workers/start.worker.ts --watch"
   },
   "keywords": [],
   "author": "",

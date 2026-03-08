@@ -3,12 +3,21 @@ import { IJob, JobStatus } from "src/interfaces/Ijob";
 import { Job } from "src/model/job.model";
 
 export const EnqueueJob = async (job: IJob) => {
+    const { _id, scheduledAt } = job;
+
+    const jobId = String(_id);
+
+    const now = Date.now()
+    const scheduledTime = new Date(scheduledAt).getTime();
+    const delay = Math.max(scheduledTime - now, 0);
+    
+
     await JobQueue.add(
-        job._id, 
-        job,
+        jobId, 
+        { jobId },
         {
-            jobId
-            : job._id, 
+            jobId,
+            delay,
             attempts: 5, // Number of retry attempts
             backoff: {
                 type: "exponential",
@@ -19,6 +28,6 @@ export const EnqueueJob = async (job: IJob) => {
         }
     );
 
-    // Update job status to 'queued'
-    await Job.findByIdAndUpdate(job._id, {  status: JobStatus.QUEUED });
+    // Update job status to 'scheduled'
+    await Job.findByIdAndUpdate(job._id, {  status: JobStatus.SCHEDULED });
 };

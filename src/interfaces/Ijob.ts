@@ -17,6 +17,7 @@ export enum JobType {
 
 export enum JobStatus {
     PENDING = "PENDING",
+    SCHEDULED = "SCHEDULED",
     QUEUED = "QUEUED",
     IN_PROGRESS = "IN_PROGRESS",
     COMPLETED = "COMPLETED",

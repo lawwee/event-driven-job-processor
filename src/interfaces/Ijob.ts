@@ -2,7 +2,7 @@ export interface IJob {
     name: string;
     scheduledAt: number;
     scheduledAtISO: string; 
-    type: JobType;
+    jobType: JobType;
     payload: any;
     status: JobStatus;
     retryCount: number;
@@ -13,6 +13,7 @@ export interface IJob {
 
 export enum JobType {
     DEFAULT = "DEFAULT",
+    SEND_EMAIL = "SEND_EMAIL",
 };
 
 export enum JobStatus {

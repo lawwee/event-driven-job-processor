@@ -1,4 +1,4 @@
-import { IJob, JobType } from "src/interfaces/Ijob";
+import { IJob, JobStatus, JobType } from "src/interfaces/Ijob";
 import { RootService } from "./_root";
 
 import { EnqueueJob } from "src/queue/job.producer";
@@ -39,7 +39,8 @@ export class JobService extends RootService {
             const job: IJob = await Job.create({
                 ...body,
                 scheduledAt: scheduledAtTimestamp,
-                scheduledAtISO: scheduledAt
+                scheduledAtISO: scheduledAt,
+                status: JobStatus.SCHEDULED
             });
 
             if (!job._id) {

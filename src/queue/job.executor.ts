@@ -1,8 +1,9 @@
-import { JobRegistry } from "src/jobs/job.registry";
+import { JobRegistry } from "../jobs/job.registry";
+import { JobType } from "../interfaces/Ijob";
 
 export async function executeJob(
     jobId: string, 
-    jobType: string, 
+    jobType: JobType, 
     payload: any
 ): Promise<void> {
     const handler = JobRegistry[jobType as keyof typeof JobRegistry];

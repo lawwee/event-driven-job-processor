@@ -11,7 +11,6 @@ export const EnqueueJob = async (job: IJob) => {
     const scheduledTime = new Date(scheduledAt).getTime();
     const delay = Math.max(scheduledTime - now, 0);
     
-
     await JobQueue.add(
         jobId, 
         { jobId },
@@ -28,6 +27,6 @@ export const EnqueueJob = async (job: IJob) => {
         }
     );
 
-    // Update job status to 'scheduled'
-    await Job.findByIdAndUpdate(job._id, {  status: JobStatus.SCHEDULED });
+    // Update job status to 'queued'
+    await Job.findByIdAndUpdate(job._id, {  status: JobStatus.QUEUED });
 };

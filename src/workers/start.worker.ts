@@ -1,3 +1,12 @@
-import "../queue/job.worker";
+import { connectToDatabase } from "../config/database";
 
-console.log("Job worker started and listening for jobs...");
+(async () => {
+	try {
+		await connectToDatabase();
+		await import("../queue/job.worker");
+		console.log("Job worker started and listening for jobs...");
+	} catch (err) {
+		console.error("Failed to start job worker:", err);
+		process.exit(1);
+	}
+})();

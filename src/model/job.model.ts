@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { IJob, JobStatus, JobType } from "src/interfaces/Ijob";
+import { IJob, JobStatus, JobType } from "../interfaces/Ijob";
 
 const JobSchema = new mongoose.Schema<IJob>({
     name: { 
@@ -15,7 +15,7 @@ const JobSchema = new mongoose.Schema<IJob>({
         type: String, 
         required: true
     },
-    type: {
+    jobType: {
         type: String,
         enum: Object.values(JobType),
         required: true

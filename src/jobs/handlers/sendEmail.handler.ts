@@ -11,9 +11,9 @@ export class SendEmailHandler implements JobHandler {
 
         await Job.updateOne(
             { _id: jobId }, 
-            { status: JobStatus.COMPLETED }
+            { status: JobStatus.SUCCESS }
         );
 
-        console.log(`Job ${jobId} marked as COMPLETED.`);
+        console.log(`Job ${jobId} marked as SUCCESS.`);
     };
 };

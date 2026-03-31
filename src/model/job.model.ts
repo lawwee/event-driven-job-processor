@@ -35,6 +35,10 @@ const JobSchema = new mongoose.Schema<IJob>({
         default: 0,
         required: true
     },
+    lastError: {
+        type: String,
+        default: null
+    }
 }, { timestamps: true });
 
 export const Job = mongoose.model<IJob>("Job", JobSchema);

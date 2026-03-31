@@ -9,6 +9,7 @@ export interface IJob {
     createdAt: Date;
     updatedAt: Date;
     _id?: string;
+    lastError?: string;
 };
 
 export enum JobType {
@@ -20,9 +21,10 @@ export enum JobStatus {
     PENDING = "PENDING",
     SCHEDULED = "SCHEDULED",
     QUEUED = "QUEUED",
-    IN_PROGRESS = "IN_PROGRESS",
-    COMPLETED = "COMPLETED",
+    PROCESSING = "PROCESSING",
+    "SUCCESS" = "SUCCESS",
     FAILED = "FAILED",
+    "DEAD" = "DEAD"
 };
 
 export interface JobHandler {

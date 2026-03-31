@@ -21,8 +21,8 @@ export const JobWorker = new Worker(
             const { _id, jobType } = jobRecord;
 
             try {
-                const updatedJob = await Job.findByIdAndUpdate(_id, { status: JobStatus.IN_PROGRESS });
-                console.log(`Job ${_id} status updated to IN_PROGRESS.`);
+                const updatedJob = await Job.findByIdAndUpdate(_id, { status: JobStatus.PROCESSING });
+                console.log(`Job ${_id} status updated to PROCESSING.`);
 
                 const payload = updatedJob.payload;
 

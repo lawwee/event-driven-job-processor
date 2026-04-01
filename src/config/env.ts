@@ -12,5 +12,7 @@ const throwIfUndefined = (name: string, value: any) => {
 
 export const Environment = {
     PORT: process.env.PORT || "3000",
-    DB_HOST: throwIfUndefined("DB_HOST", process.env.DB_HOST)
+    DB_HOST: throwIfUndefined("DB_HOST", process.env.DB_HOST),
+    REDIS_HOST: throwIfUndefined("REDIS_HOST", process.env.REDIS_HOST),
+    REDIS_PORT: throwIfUndefined("REDIS_PORT", process.env.REDIS_PORT)
 };

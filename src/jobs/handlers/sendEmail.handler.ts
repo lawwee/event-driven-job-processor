@@ -8,12 +8,5 @@ export class SendEmailHandler implements JobHandler {
         const { to, subject, body } = payload;
 
         console.log(`Email sent to ${to} with subject "${subject}" and body "${body}"`);
-
-        await Job.updateOne(
-            { _id: jobId }, 
-            { status: JobStatus.SUCCESS }
-        );
-
-        console.log(`Job ${jobId} marked as SUCCESS.`);
     };
 };

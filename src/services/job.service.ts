@@ -71,4 +71,16 @@ export class JobService extends RootService {
             return this.process_failed_response(error);
         };
     };
+
+    async allJobs(status?: JobStatus) {
+        try {
+            const jobs = await Job.find({ status }).select("-__v");
+
+            return this.process_successful_response(jobs);
+
+        } catch (error) {
+            console.error("Error fetching all jobs:", error);
+            return this.process_failed_response(error);
+        };
+    };
 };

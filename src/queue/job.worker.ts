@@ -68,6 +68,7 @@ JobWorker.on("failed", async (job, err) => {
     const isFinal = jobDetails.retryCount >= 5;
 
     await Job.findByIdAndUpdate(jobId, {
+        $inc: { retryCount: 1 },
         status: isFinal ? JobStatus.DEAD: JobStatus.FAILED,
         lastError: err.message
     });
